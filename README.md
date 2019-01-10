@@ -15,12 +15,12 @@ npm install --save react-dataware-tool
 ```tsx
 import * as React from 'react'
 
-import MyComponent from 'react-dataware-tool'
+import DatawareImageTool from 'react-dataware-tool'
 
 class Example extends React.Component {
   render () {
     return (
-      <MyComponent />
+      <DatawareImageTool />
     )
   }
 }
