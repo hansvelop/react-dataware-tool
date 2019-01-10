@@ -1,23 +1,25 @@
 /**
- * @class ExampleComponent
+ * @class DatawareImageTool
  */
 
-import * as React from 'react'
+import * as React from "react";
 
-import styles from './styles.css'
+import styles from "./styles.css";
 
-export type Props = { text: string }
+export type Props = { 
+  imgSrc: string,
+  width: number,
+  height: number
+};
 
-export default class ExampleComponent extends React.Component<Props> {
+export default class DatawareImageTool extends React.Component<Props> {
   render() {
-    const {
-      text
-    } = this.props
+    const { imgSrc, width, height } = this.props;
 
     return (
-      <div className={styles.test}>
-        Example Component: {text}
+      <div>
+        <img src={imgSrc} width={width} height={height} />
       </div>
-    )
+    );
   }
 }
