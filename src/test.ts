@@ -1,7 +1,7 @@
-import ExampleComponent from './'
+import DatawareImageTool from './'
 
-describe('ExampleComponent', () => {
+describe('DatawareImageTool', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(DatawareImageTool).toBeTruthy()
   })
 })
