@@ -12,7 +12,19 @@ export type Props = {
   height: string
 };
 
-export default class DatawareImageTool extends React.Component<Props> {
+export type State = { 
+  trackWidth: number,
+  trackHeight: number
+};
+
+export default class DatawareImageTool extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      trackWidth : 0,
+      trackHeight: 0
+    }
+  }
   render() {
     let { imgSrc, width, height } = this.props;
     let imgBoneStyle = {};
@@ -31,17 +43,18 @@ export default class DatawareImageTool extends React.Component<Props> {
         height: '100%'
       }
     }
-    width = width ? width+'px' : '100%';
-    height = height ? height+'px' : '100%';
     imgSrc = imgSrc ? imgSrc : "http://t1.daumcdn.net/brunch/service/user/3EZt/image/FFz2cVHd6gvdJTtamgy5rN0fFN4.jpg"
     let bgStyle = {
-      width : width,
-      height : height,
-      textalign : 'center'
+      width : width ? width+'px' : '100%',
+      height :  height ? height+'px' : '100%',
+      lineHeight : height+"px"
     }
+    
+    const {trackWidth, trackHeight} = this.state;
+    
     return (
       <div className={styles.bgPattern} style={bgStyle}>
-        <div className={styles.track}></div>
+        <div className={styles.track} style={{width: trackWidth+"px", height: trackHeight+"px"}}></div>
         <img className={styles.imgBone} style={imgBoneStyle} src={imgSrc} />
       </div>
     );
