@@ -6,56 +6,117 @@ import * as React from "react";
 
 import styles from "./styles.css";
 
-export type Props = { 
-  imgSrc: string,
-  width: string,
-  height: string
-};
+// interface TrackerBoxProps {
+//   mouseEvent: MouseEvent;
+// }
 
-export type State = { 
-  trackWidth: number,
-  trackHeight: number
-};
+// class TrakerBox extends React.Component<TrackerBoxProps> {
+//   render() {
+//     const { mouseEvent } = this.props;
+//     return (
+//       <div
+//         className={styles.track}
+//         style={{
+//           width: 100 + "px",
+//           height: 100 + "px",
+//           left: mouseEvent.x + "px",
+//           top: mouseEvent.y + "px"
+//         }}
+//       />
+//     );
+//   }
+// }
 
+interface Props {
+  imgSrc: string;
+  width: string;
+  height: string;
+}
+interface State {
+  width: number;
+  height: number;
+  x: number;
+  y: number;
+}
+
+let mouseClickFlag = false;
 export default class DatawareImageTool extends React.Component<Props, State> {
   constructor(props: Props) {
+    console.log("constructor");
     super(props);
     this.state = {
-      trackWidth : 0,
-      trackHeight: 0
+      width: 0,
+      height: 0,
+      x: 0,
+      y: 0
+    }
+    this.mouseEventDown = this.mouseEventDown.bind(this);
+    this.mouseEventUp = this.mouseEventUp.bind(this);
+    this.mouseEventMove = this.mouseEventMove.bind(this);
+  }
+
+  mouseEventDown() {
+    console.log("mouse Down");
+
+    mouseClickFlag = true;
+  }
+
+  mouseEventUp() {
+    console.log("mouse Up");
+
+    mouseClickFlag = false;
+  }
+
+  mouseEventMove(event: MouseEvent) {
+    if (mouseClickFlag) {
+      console.log("event :" + event);
+      this.setState({
+        width: 100,
+        height: 100,
+        x: event.x,
+        y: event.y
+      });
     }
   }
+
   render() {
     let { imgSrc, width, height } = this.props;
     let imgBoneStyle = {};
-    if( width > height ){
+    if (width > height) {
       imgBoneStyle = {
-        width : '100%',
-        lineHeight : height
-      }
-    }else if( height > width ){
+        width: "100%",
+        lineHeight: height
+      };
+    } else if (height > width) {
       imgBoneStyle = {
-        height : '100%'
-      }
-    }else{
-      imgBoneStyle ={
-        width: '100%',
-        height: '100%'
-      }
+        height: "100%"
+      };
+    } else {
+      imgBoneStyle = {
+        width: "100%",
+        height: "100%"
+      };
     }
-    imgSrc = imgSrc ? imgSrc : "http://t1.daumcdn.net/brunch/service/user/3EZt/image/FFz2cVHd6gvdJTtamgy5rN0fFN4.jpg"
+    imgSrc = imgSrc
+      ? imgSrc
+      : "http://t1.daumcdn.net/brunch/service/user/3EZt/image/FFz2cVHd6gvdJTtamgy5rN0fFN4.jpg";
     let bgStyle = {
-      width : width ? width+'px' : '100%',
-      height :  height ? height+'px' : '100%',
-      lineHeight : height+"px"
-    }
-    
-    const {trackWidth, trackHeight} = this.state;
-    
+      width: width ? width + "px" : "100%",
+      height: height ? height + "px" : "100%",
+      lineHeight: height + "px"
+    };
+
     return (
       <div className={styles.bgPattern} style={bgStyle}>
-        <div className={styles.track} style={{width: trackWidth+"px", height: trackHeight+"px"}}></div>
-        <img className={styles.imgBone} style={imgBoneStyle} src={imgSrc} />
+        {/* <TrakerBox mouseEvent={this.state.x} /> */}
+        <img
+          className={styles.imgBone}
+          style={imgBoneStyle}
+          src={imgSrc}
+          onMouseDown={this.mouseEventDown}
+          onMouseMove={this.mouseEventMove.bind(this)}
+          onMouseUp={this.mouseEventUp}
+        />
       </div>
     );
   }

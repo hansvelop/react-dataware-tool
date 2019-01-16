@@ -6,8 +6,8 @@ export default class App extends Component {
   render() {
     return (
       <DatawareImageTool 
-        width={800}
-        height={600}
+        width={440}
+        height={350}
       />
     );
   }
