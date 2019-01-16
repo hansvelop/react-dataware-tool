@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import ExampleComponent from 'react-dataware-tool'
+import DatawareImageTool from "react-dataware-tool";
 
 export default class App extends Component {
-  render () {
+  render() {
     return (
-      <div>
-        <ExampleComponent text='Modern React component module' />
-      </div>
-    )
+      <DatawareImageTool 
+        width={440}
+        height={350}
+      />
+    );
   }
 }
