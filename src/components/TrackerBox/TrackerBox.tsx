@@ -21,12 +21,12 @@ class TrackerBox extends React.Component<Props> {
   render() {
     const {setWidth, setHeight, setX, setY} = this.props.mouseVal;
     const trackStyle = {
-      width : setWidth ? setWidth + "px" : 0,
-      height : setHeight ? setHeight + "px" : 0,
-      x : setX ? setX + "px" : 0,
-      y : setY ? setY + "px": 0
+      width : setWidth != 0 ? setWidth + "px" : 0,
+      height : setHeight != 0 ? setHeight + "px" : 0,
+      left : setX != 0 ? setX + "px" : 0,
+      top : setY != 0 ? setY + "px": 0
     } as React.CSSProperties;
-    
+
     return (
       <div
         className={styles.TrackerBox}

@@ -19,6 +19,8 @@ interface State {
 }
 
 let mouseClickFlag = false;
+let trackerX = 0;
+let trackerY = 0;
 export default class DatawareCrop extends React.Component<Props, State> {
     constructor(props: Props) {
         console.log("constructor");
@@ -29,31 +31,40 @@ export default class DatawareCrop extends React.Component<Props, State> {
           setX: 0,
           setY: 0
         }
-        this.mouseEventDown = this.mouseEventDown.bind(this);
-        this.mouseEventUp = this.mouseEventUp.bind(this);
-        this.mouseEventMove = this.mouseEventMove.bind(this);
+        // this.mouseEventDown = this.mouseEventDown.bind(this);
+        // this.mouseEventUp = this.mouseEventUp.bind(this);
+        // this.mouseEventMove = this.mouseEventMove.bind(this);
       }
-    
-      mouseEventDown() {
+      
+      mouseEventDown(event:MouseEvent) {
         console.log("mouse Down");
-    
+        trackerX = 0;
+        trackerY = 0;
+        this.setState({
+          setWidth: 0,
+          setHeight: 0,
+          setX: 0,
+          setY: 0
+        });
+        trackerX = event.clientX;
+        trackerY = event.clientY;
         mouseClickFlag = true;
       }
     
       mouseEventUp() {
         console.log("mouse Up");
-    
+        
         mouseClickFlag = false;
       }
     
       mouseEventMove(event: MouseEvent) {
+        event.preventDefault();
         if (mouseClickFlag) {
-          console.log("event :" + event);
           this.setState({
-            setWidth: 100,
-            setHeight: 100,
-            setX: event.x,
-            setY: event.y
+            setWidth: event.clientX - trackerX-4,
+            setHeight: event.clientY - trackerY-4,
+            setX: trackerX,
+            setY: trackerY
           });
         }
       }
@@ -95,9 +106,11 @@ export default class DatawareCrop extends React.Component<Props, State> {
               className={styles.imgBone}
               style={imgBoneStyle}
               src={imgSrc}
-              onMouseDown={this.mouseEventDown}
+              onMouseDownCapture={this.mouseEventDown.bind(this)}
+              onMouseMoveCapture={this.mouseEventMove.bind(this)}
               onMouseMove={this.mouseEventMove.bind(this)}
-              onMouseUp={this.mouseEventUp}
+              onMouseUpCapture={this.mouseEventUp.bind(this)}
+              
             />
           </div>
         );
