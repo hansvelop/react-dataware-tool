@@ -1,8 +1,8 @@
-import DatawareImageTool from './'
+import DatawareCrop from './components/DatawareCrop'
 
 describe('DatawareImageTool', () => {
   it('is truthy', () => {
-    expect(DatawareImageTool).toBeTruthy()
+    expect(DatawareCrop).toBeTruthy()
   })
 })
   
