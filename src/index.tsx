@@ -6,26 +6,26 @@ import * as React from "react";
 
 import styles from "./styles.css";
 
-// interface TrackerBoxProps {
-//   mouseEvent: MouseEvent;
-// }
+interface TrackerBoxProps {
+  mouseEvent: MouseEvent;
+}
 
-// class TrakerBox extends React.Component<TrackerBoxProps> {
-//   render() {
-//     const { mouseEvent } = this.props;
-//     return (
-//       <div
-//         className={styles.track}
-//         style={{
-//           width: 100 + "px",
-//           height: 100 + "px",
-//           left: mouseEvent.x + "px",
-//           top: mouseEvent.y + "px"
-//         }}
-//       />
-//     );
-//   }
-// }
+class TrakerBox extends React.Component<TrackerBoxProps> {
+  render() {
+    const { mouseEvent } = this.props;
+    return (
+      <div
+        className={styles.track}
+        style={{
+          width: 100 + "px",
+          height: 100 + "px",
+          left: mouseEvent.x + "px",
+          top: mouseEvent.y + "px"
+        }}
+      />
+    );
+  }
+}
 
 interface Props {
   imgSrc: string;
@@ -99,7 +99,8 @@ export default class DatawareImageTool extends React.Component<Props, State> {
     }
     imgSrc = imgSrc
       ? imgSrc
-      : "http://t1.daumcdn.net/brunch/service/user/3EZt/image/FFz2cVHd6gvdJTtamgy5rN0fFN4.jpg";
+      // : "http://t1.daumcdn.net/brunch/service/user/3EZt/image/FFz2cVHd6gvdJTtamgy5rN0fFN4.jpg";
+      : "http://designhumor.kr/wp-content/uploads/2016/12/Factory-production-line-3d-simulation-810x540.jpg";
     let bgStyle = {
       width: width ? width + "px" : "100%",
       height: height ? height + "px" : "100%",
