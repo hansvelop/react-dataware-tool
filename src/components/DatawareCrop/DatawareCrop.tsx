@@ -12,10 +12,10 @@ interface Props {
   height: string;
 }
 interface State {
-  setWidth: number;
-  setHeight: number;
-  setX: number;
-  setY: number;
+  width: number;
+  height: number;
+  x: number;
+  y: number;
 }
 
 let mouseClickFlag = false;
@@ -26,10 +26,10 @@ export default class DatawareCrop extends React.Component<Props, State> {
         console.log("constructor");
         super(props);
         this.state = {
-          setWidth: 0,
-          setHeight: 0,
-          setX: 0,
-          setY: 0
+          width: 0,
+          height: 0,
+          x: 0,
+          y: 0
         }
         // this.mouseEventDown = this.mouseEventDown.bind(this);
         // this.mouseEventUp = this.mouseEventUp.bind(this);
@@ -41,10 +41,10 @@ export default class DatawareCrop extends React.Component<Props, State> {
         trackerX = 0;
         trackerY = 0;
         this.setState({
-          setWidth: 0,
-          setHeight: 0,
-          setX: 0,
-          setY: 0
+          width: 0,
+          height: 0,
+          x: 0,
+          y: 0
         });
         trackerX = event.clientX;
         trackerY = event.clientY;
@@ -59,12 +59,24 @@ export default class DatawareCrop extends React.Component<Props, State> {
     
       mouseEventMove(event: MouseEvent) {
         event.preventDefault();
+        let setWidth = event.clientX - trackerX;
+        let setHeight = event.clientY - trackerY;
+        let setX = trackerX;
+        let setY = trackerY;
+        if(event.clientX < trackerX){
+          setX = event.clientX;
+          setWidth = trackerX - event.clientX;
+        }
+        if(event.clientY < trackerY){
+          setY = event.clientY;
+          setHeight = trackerY - event.clientY;
+        }
         if (mouseClickFlag) {
           this.setState({
-            setWidth: event.clientX - trackerX-4,
-            setHeight: event.clientY - trackerY-4,
-            setX: trackerX,
-            setY: trackerY
+            width: setWidth,
+            height: setHeight,
+            x: setX,
+            y: setY
           });
         }
       }
@@ -101,15 +113,14 @@ export default class DatawareCrop extends React.Component<Props, State> {
         const mouseVal = this.state;
         return (
           <div className={styles.bgPattern} style={bgStyle}>
-            <TrackerBox mouseVal={mouseVal}  />
+            <TrackerBox mouseVal={mouseVal} />
             <img
               className={styles.imgBone}
               style={imgBoneStyle}
               src={imgSrc}
-              onMouseDownCapture={this.mouseEventDown.bind(this)}
-              onMouseMoveCapture={this.mouseEventMove.bind(this)}
+              onMouseDown={this.mouseEventDown.bind(this)}
               onMouseMove={this.mouseEventMove.bind(this)}
-              onMouseUpCapture={this.mouseEventUp.bind(this)}
+              onMouseUp={this.mouseEventUp.bind(this)}
               
             />
           </div>

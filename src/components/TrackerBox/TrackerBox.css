@@ -1,4 +1,5 @@
 .TrackerBox{
     position: absolute;
-    border: 1.5px solid #2965CC;
-}
+    border: 1.5px solid #5cbbff;
+    pointer-events: none;
+} 

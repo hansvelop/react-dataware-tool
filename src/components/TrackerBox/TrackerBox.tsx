@@ -2,10 +2,10 @@ import * as React from "react";
 import styles from "./TrackerBox.css";
 
 interface MouseVal{
-  setWidth : number,
-  setHeight : number,
-  setX : number,
-  setY : number
+  width : number,
+  height : number,
+  x : number,
+  y : number
 } 
 
 interface Props{
@@ -19,13 +19,13 @@ class TrackerBox extends React.Component<Props> {
   }
   
   render() {
-    const {setWidth, setHeight, setX, setY} = this.props.mouseVal;
+    const {width, height, x, y} = this.props.mouseVal;
     const trackStyle = {
-      width : setWidth != 0 ? setWidth + "px" : 0,
-      height : setHeight != 0 ? setHeight + "px" : 0,
-      left : setX != 0 ? setX + "px" : 0,
-      top : setY != 0 ? setY + "px": 0
-    } as React.CSSProperties;
+      width : width != 0 ? width + "px" : 0,
+      height : height != 0 ? height + "px" : 0,
+      left : x != 0 ? x + "px" : 0,
+      top : y != 0 ? y + "px": 0
+    };
 
     return (
       <div
